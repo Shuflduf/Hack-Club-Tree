@@ -6,7 +6,7 @@
 		client_id: env.PUBLIC_HCA_CLIENT_ID,
 		redirect_uri: env.PUBLIC_HCA_REDIRECT,
 		response_type: 'code',
-		scope: 'openid profile'
+		scope: 'openid profile slack_id'
 	};
 	let authParams = new URLSearchParams(authObject).toString();
 

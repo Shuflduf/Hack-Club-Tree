@@ -35,7 +35,21 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
 			Authorization: `Bearer ${response.access_token}`
 		}
 	});
-	console.log(await userInfoReq.json());
+	const userInfo = await userInfoReq.json();
+	console.log(userInfo);
+
+	const slackInfoUrl = 'https://slack.com/api/users.info';
+	const slackInfoReq = await fetch(slackInfoUrl, {
+		method: 'POST',
+			headers: {
+		'Content-Type': 'application/x-www-form-urlencoded'
+	},
+		body: new URLSearchParams({
+			token: env.SLACK_BOT_OAUTH_TOKEN,
+			user: userInfo.slack_id
+		})
+	});
+	console.log(await slackInfoReq.json());
 
 	return { success: true };
 };

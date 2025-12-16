@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS users (
+  slack_id TEXT PRIMARY KEY,
+  username TEXT NOT NULL UNIQUE,
+  pfp_url TEXT NOT NULL,
+  ornament_position POINT NOT NULL,
+  last_moved_at TIMESTAMP NOT NULL,
+  likes INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+

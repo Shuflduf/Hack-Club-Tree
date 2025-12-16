@@ -3,6 +3,11 @@ html {
   background-size: cover;
 }
 
+.ui {
+  z-index: 5;
+  position: fixed;
+}
+
 .profile-card {
   z-index: 5;
   display: flex;
@@ -12,7 +17,7 @@ html {
   border-radius: 10px;
   width: min-content;
   box-shadow: var(--shadow);
-  position: fixed;
+  /* position: fixed; */
 
   img {
     height: 40px;

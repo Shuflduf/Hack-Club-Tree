@@ -43,7 +43,7 @@
 		}
 	}
 
-	function mouseWheel(event) {
+	function mouseWheel(event: WheelEvent) {
 		console.log(event.wheelDeltaY)
 		pageZoom += event.wheelDeltaY / 1000.0
 		pageZoom = Math.max(0.5,Math.min(5.0,pageZoom))

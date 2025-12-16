@@ -1,0 +1,8 @@
+ @font-face {
+   font-family: Jua;
+   src: url(jua.ttf);
+ }
+
+ :root {
+   --shadow: 0px 2px 2px #0005;
+ }

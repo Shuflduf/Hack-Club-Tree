@@ -1,4 +1,5 @@
 <script lang="ts">
+	import "./styles.css"
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
 	import type { PageProps } from './$types';
@@ -21,12 +22,14 @@
 </script>
 
 {#if isAuthed}
+	<div class="profile-card">
+	<img src={profile.image_1024} alt="profile">
 	<h1>{profile.display_name}</h1>
+	</div>
 {:else}
 	<a href="https://auth.hackclub.com/oauth/authorize?{authParams}">auth</a>
 {/if}
 
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 <img
 	src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAB5uGmUgiogA3EznAhwHRX1B4_2_PtOjmcw&s"
 	alt="tree"

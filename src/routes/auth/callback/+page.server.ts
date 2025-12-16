@@ -24,7 +24,7 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
 		path: '/',
 		httpOnly: true,
 		secure: true,
-		sameSite: 'strict',
+		sameSite: 'lax',
 		maxAge: 3600
 	});
 
@@ -39,9 +39,9 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
 	const slackInfoUrl = 'https://slack.com/api/users.info';
 	const slackInfoReq = await fetch(slackInfoUrl, {
 		method: 'POST',
-			headers: {
-		'Content-Type': 'application/x-www-form-urlencoded'
-	},
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
 		body: new URLSearchParams({
 			token: env.SLACK_BOT_OAUTH_TOKEN,
 			user: userInfo.slack_id
@@ -50,8 +50,7 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
 	const slackInfo = await slackInfoReq.json();
 	console.log(slackInfo.user.profile);
 
-	// return slackInfo.user.profile;
-	redirect(308, "/")
+	redirect(302, '/');
 };
 
 async function verifyJWT(token: string): Promise<boolean> {

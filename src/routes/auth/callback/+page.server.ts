@@ -1,5 +1,6 @@
 import { env } from '$env/dynamic/private';
 import { env as penv } from '$env/dynamic/public';
+import { redirect } from '@sveltejs/kit';
 
 import type { PageServerLoad } from './$types';
 
@@ -13,13 +14,11 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
 		code: code,
 		grant_type: 'authorization_code'
 	};
-	console.log(reqParams);
 	const req = await fetch(authTokenUrl, {
 		method: 'POST',
 		body: new URLSearchParams(reqParams as any)
 	});
 	const response = await req.json();
-	console.log(response);
 
 	cookies.set('access_token', response.access_token, {
 		path: '/',
@@ -36,7 +35,6 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
 		}
 	});
 	const userInfo = await userInfoReq.json();
-	console.log(userInfo);
 
 	const slackInfoUrl = 'https://slack.com/api/users.info';
 	const slackInfoReq = await fetch(slackInfoUrl, {
@@ -50,9 +48,10 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
 		})
 	});
 	const slackInfo = await slackInfoReq.json();
-	console.log(slackInfo.user);
+	console.log(slackInfo.user.profile);
 
-	return slackInfo.user.profile;
+	// return slackInfo.user.profile;
+	redirect(308, "/")
 };
 
 async function verifyJWT(token: string): Promise<boolean> {

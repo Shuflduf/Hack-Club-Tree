@@ -1,3 +1,9 @@
+body {
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+}
+
 html {
   background-image: url("bg.jpg");
   background-size: cover;

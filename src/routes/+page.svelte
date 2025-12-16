@@ -1,5 +1,6 @@
 <script lang="ts">
 	import "./styles.css"
+	import Ornament from "./Ornament.svelte"
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
 	import type { PageProps } from './$types';
@@ -12,7 +13,7 @@
 	let mousePos = [0.0, 0.0]
 	let mouseDown = false
 	let placingOrnament = $state(false)
-	let screen: HTMLElement | undefined = $state()
+	// let screen: HTMLElement | undefined = $state()
 
 	const authProps = {
 		client_id: env.PUBLIC_HCA_CLIENT_ID,
@@ -23,7 +24,7 @@
 	const authParams = new URLSearchParams(authProps).toString();
 
 	onMount(() => {
-		screen = screen as HTMLElement
+		const screen = document.body
 		console.log(data);
 		screen.addEventListener("mousedown", (event: MouseEvent) => {
 			mouseDown = true;
@@ -53,9 +54,10 @@
 	}
 
 	async function addOrnament() {
-		const req = await fetch("/api/move_ornament", { method: "POST", body: JSON.stringify({position: mousePos}) })
-		const res = await req.json()
-		console.log(res)
+		// const req = await fetch("/api/move_ornament", { method: "POST", body: JSON.stringify({position: mousePos}) })
+		// const res = await req.json()
+		// console.log(res)
+		placingOrnament = true
 	}
 </script>
 
@@ -71,7 +73,7 @@
 	{/if}
 </div>
 
-<div class="screen" bind:this={screen}
+<div class="screen"
 	style={`top: ${pagePosition[1]}px; left: ${pagePosition[0]}px; scale: ${pageZoom}`}
 >
 	<img
@@ -80,7 +82,7 @@
 		draggable="false"
 	/>
 	{#if placingOrnament}
-		<Ornament />
+		<Ornament placed={false} position={[300, 200]} src="https://avatars.slack-edge.com/2025-12-06/10094819889632_2e7e69699ad2fe3a7bdd_24.png" />
 	{/if}
 </div>
 

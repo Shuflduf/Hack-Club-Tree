@@ -49,9 +49,10 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
 			user: userInfo.slack_id
 		})
 	});
-	console.log(await slackInfoReq.json());
+	const slackInfo = await slackInfoReq.json();
+	console.log(slackInfo.user);
 
-	return { success: true };
+	return slackInfo.user.profile;
 };
 
 async function verifyJWT(token: string): Promise<boolean> {

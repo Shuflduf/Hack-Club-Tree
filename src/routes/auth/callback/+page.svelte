@@ -8,4 +8,4 @@
 	});
 </script>
 
-<p>{data.success}</p>
+<p>{data.display_name}</p>

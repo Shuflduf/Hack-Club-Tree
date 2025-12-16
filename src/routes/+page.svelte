@@ -22,15 +22,16 @@
 
 	onMount(() => {
 		console.log(data);
-		window.addEventListener("mousedown", (event: MouseEvent) => {
+		addEventListener("mousedown", (event: MouseEvent) => {
 			mouseDown = true;
 			mousePos = [
 				event.clientX - pagePosition[0],
 				event.clientY - pagePosition[1]
 			]
-		})
-		window.addEventListener("mouseup", () => mouseDown = false)
-		window.addEventListener("mousemove", mouseMove)
+		});
+		addEventListener("mouseup", () => mouseDown = false);
+		addEventListener("mousemove", mouseMove);
+		addEventListener("wheel", mouseWheel)
 	});
 
 	function mouseMove(event: MouseEvent) {
@@ -39,9 +40,13 @@
 				event.clientX - mousePos[0],
 				event.clientY - mousePos[1]
 			];
-			console.log(mousePos);
 		}
+	}
 
+	function mouseWheel(event) {
+		console.log(event.wheelDeltaY)
+		pageZoom += event.wheelDeltaY / 1000.0
+		pageZoom = Math.max(0.5,Math.min(5.0,pageZoom))
 	}
 </script>
 
@@ -58,7 +63,7 @@
 	<img
 		src="tree.png"
 		alt="tree"
-		style={`top: ${pagePosition[1]}px; left: ${pagePosition[0]}px;`}
+		style={`top: ${pagePosition[1]}px; left: ${pagePosition[0]}px; scale: ${pageZoom}`}
 		draggable="false"
 	/>
 </div>

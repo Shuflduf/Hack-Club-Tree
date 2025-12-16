@@ -7,6 +7,8 @@
 	let { data }: PageProps = $props();
 	let isAuthed = Object.keys(data).length !== 0;
 	let profile = data;
+	let pagePosition = $state([500.0, 0.0])
+	let pageZoom = $state(3.0)
 
 	const authProps = {
 		client_id: env.PUBLIC_HCA_CLIENT_ID,

@@ -1,3 +1,8 @@
+html {
+  background-image: url("bg.jpg");
+  background-size: cover;
+}
+
 .profile-card {
   z-index: 5;
   display: flex;
@@ -37,6 +42,7 @@
 
 .login-button {
   z-index: 5;
+  text-shadow: var(--shadow);
   display: flex;
   background-color: #be4b53;
   padding: 10px;

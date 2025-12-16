@@ -23,14 +23,16 @@
 
 {#if isAuthed}
 	<div class="profile-card">
-	<img src={profile.image_1024} alt="profile">
-	<h1>{profile.display_name}</h1>
+		<img src={profile.image_1024} alt="profile">
+		<h1>{profile.display_name}</h1>
 	</div>
 {:else}
-	<a href="https://auth.hackclub.com/oauth/authorize?{authParams}">auth</a>
+	<a href="https://auth.hackclub.com/oauth/authorize?{authParams}" class="login-button">Log In</a>
 {/if}
 
-<img
-	src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAB5uGmUgiogA3EznAhwHRX1B4_2_PtOjmcw&s"
-	alt="tree"
-/>
+<div class="screen">
+	<img
+		src="tree.png"
+		alt="tree"
+	/>
+</div>

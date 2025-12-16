@@ -1,13 +1,16 @@
 .profile-card {
+  z-index: 5;
   display: flex;
   background-color: #be4b53;
   padding: 10px;
   padding-right: 0;
   border-radius: 10px;
   width: min-content;
+  box-shadow: var(--shadow);
+  position: fixed;
 
   img {
-    height: 50px;
+    height: 40px;
     border-radius: 100%;
     /* outline: 10px solid #be4b53; */
     z-index: 10;
@@ -20,6 +23,7 @@
     text-shadow: var(--shadow);
     background-color: #a3383f;
     margin: 0;
+    font-size: 1.5rem;
     position: relative;
     left: -10px;
     padding-top: 5px;
@@ -28,5 +32,31 @@
     font-family: "Jua";
     color: #f8e9d3;
     /* margin-left: 10px; */
+  }
+}
+
+.login-button {
+  z-index: 5;
+  display: flex;
+  background-color: #be4b53;
+  padding: 10px;
+  border-radius: 10px;
+  /* width: min-content; */
+  box-shadow: var(--shadow);
+  position: fixed;
+  font-family: "Jua";
+  color: #f8e9d3;
+  font-size: 1.5rem;
+}
+
+.screen {
+  position: fixed;
+  height: 100dvh;
+  width: 100dvw;
+  top: 0;
+  right: 0;
+
+  img {
+    width: 100%;
   }
 }

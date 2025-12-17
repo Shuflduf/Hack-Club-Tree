@@ -9,6 +9,8 @@
 
 	type Position = [number, number];
 
+	let ornamentOptionsMenu: any = $state();
+
 	let { data }: PageProps = $props();
 	let ornaments: Ornament[] = $state([]);
 	let isAuthed = Object.keys(data).length !== 0;
@@ -95,13 +97,31 @@
 		const pos = [Math.round(draftOrnamentPosition[0]), Math.round(draftOrnamentPosition[1])];
 		await fetch('/api/move_ornament', {
 			method: 'POST',
-			body: JSON.stringify({ position: pos })
+			body: JSON.stringify({
+				position: pos,
+				flipped: currentConfig.flipped,
+				rotation: currentConfig.rotation_degress,
+				decoration: currentConfig.decoration
+			})
 		});
 		// const res = await req.json();
 	}
+
+	function openOrnamentOptions() {
+		ornamentOptionsMenu.startEditing($state.snapshot(currentConfig));
+	}
+
+	function updateExistingConfig(newConfig: OrnamentConfig) {
+		console.log(newConfig);
+		currentConfig = newConfig;
+	}
 </script>
 
-<OrnamentOptions pfpUrl={profile.image_512} {currentConfig} />
+<OrnamentOptions
+	pfpUrl={profile.image_512}
+	bind:this={ornamentOptionsMenu}
+	finished={updateExistingConfig}
+/>
 
 <div class="ui">
 	{#if isAuthed}

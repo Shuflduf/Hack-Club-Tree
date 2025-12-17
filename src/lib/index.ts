@@ -6,6 +6,9 @@ export type Ornament = {
 	likes: number;
 	updated_at: Date;
 	created_at: Date;
+	decoration_index: number;
+	rotation: number;
+	flipped: boolean;
 };
 
 export enum Decoration {

@@ -3,8 +3,11 @@ CREATE TABLE IF NOT EXISTS users (
   username TEXT NOT NULL UNIQUE,
   pfp_url TEXT NOT NULL,
   ornament_position POINT NOT NULL,
-  last_moved_at TIMESTAMP NOT NULL,
   likes INTEGER DEFAULT 0,
+  decoration_index INTEGER NOT NULL,
+  rotation INTEGER DEFAULT 0,
+  flipped BOOLEAN DEFAULT FALSE,
+  updated_at TIMESTAMP NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

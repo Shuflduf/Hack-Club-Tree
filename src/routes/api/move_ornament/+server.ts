@@ -5,18 +5,24 @@ import type { RequestHandler } from './$types';
 export const POST: RequestHandler = async ({ cookies, request }) => {
 	const reqBody = await request.json();
 	const ornamentPos = reqBody.position;
+	const decorationIndex = reqBody.decoration;
+	const rotation = reqBody.rotation;
+	const flipped = reqBody.flipped;
 	const ornamentPosStr = `(${ornamentPos[0]}, ${ornamentPos[1]})`;
 	const slack_id = await getSlackId(cookies.get('access_token') as string);
 	const profile = await getProfileInfo(slack_id);
 	const sqlInstruction = `
-INSERT INTO users(slack_id, username, pfp_url, ornament_position, updated_at)
-VALUES($1, $2, $3, $4, $5)
+INSERT INTO users(slack_id, username, pfp_url, ornament_position, updated_at, decoration_index, rotation, flipped)
+VALUES($1, $2, $3, $4, $5, $6, $7, $8)
 ON CONFLICT (slack_id)
 DO UPDATE SET
 	username = $2,
 	pfp_url = $3,
 	ornament_position = $4,
-	updated_at = $5
+	updated_at = $5,
+	decoration_index = $6,
+	rotation = $7,
+	flipped = $8
 `;
 	const values = [
 		slack_id,

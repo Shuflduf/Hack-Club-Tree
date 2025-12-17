@@ -29,7 +29,10 @@ DO UPDATE SET
 		profile.display_name,
 		profile.image_192,
 		ornamentPosStr,
-		new Date().toISOString()
+		new Date().toISOString(),
+		decorationIndex,
+		rotation,
+		flipped
 	];
 	const res = await client.query(sqlInstruction, values);
 	console.log(reqBody);

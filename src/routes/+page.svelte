@@ -115,6 +115,14 @@
 		console.log(newConfig);
 		currentConfig = newConfig;
 	}
+
+	function getConfig(orn: Ornament): OrnamentConfig {
+		return {
+			decoration: orn.decoration_index,
+			flipped: orn.flipped,
+			rotation_degress: orn.rotation
+		};
+	}
 </script>
 
 <OrnamentOptions
@@ -155,10 +163,20 @@
 >
 	<img src="tree.png" alt="tree" class="tree" draggable="false" />
 	{#if draftOrnamentPosition != undefined}
-		<OrnamentImg placed={false} position={draftOrnamentPosition} src={profile.image_192} />
+		<OrnamentImg
+			placed={false}
+			position={draftOrnamentPosition}
+			src={profile.image_192}
+			config={currentConfig}
+		/>
 	{/if}
 
 	{#each ornaments as orn}
-		<OrnamentImg placed={true} position={orn.ornament_position} src={orn.pfp_url} />
+		<OrnamentImg
+			placed={true}
+			position={orn.ornament_position}
+			src={orn.pfp_url}
+			config={getConfig(orn)}
+		/>
 	{/each}
 </div>

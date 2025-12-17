@@ -31,7 +31,18 @@
 	{#if config.decoration != 0}
 		<img src={decorationUrl} class="overlay" alt="overlay" draggable="false" />
 	{/if}
-	<div class="info"><a href={`https://hackclub.slack.com/team/${slack_id}`}>{display_name}</a></div>
+	<div class="info"><a href={`https://hackclub.slack.com/team/${slack_id}`}>{display_name}</a>
+
+		<div class="likes">
+			<button>
+			<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/thumbsup-fill" alt="like">
+				</button>
+			<button>
+			<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/thumbsdown-fill" alt="like">
+				</button>
+			</div>
+			<span>42</span>
+	</div>
 </div>
 
 <style>

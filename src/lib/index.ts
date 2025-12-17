@@ -7,3 +7,17 @@ export type Ornament = {
 	updated_at: Date;
 	created_at: Date;
 };
+
+enum Decoration {
+	None,
+	Glow,
+	Lights,
+	Antlers,
+	Hearts
+}
+
+export type OrnamentConfig = {
+	rotation_degress: number;
+	flipped: boolean;
+	decoration: Decoration;
+};

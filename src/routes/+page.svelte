@@ -1,6 +1,7 @@
 <script lang="ts">
 	import './styles.css';
 	import OrnamentImg from './OrnamentImg.svelte';
+	import OrnamentOptions from './OrnamentOptions.svelte';
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
 	import type { PageProps } from './$types';
@@ -64,7 +65,6 @@
 		const worldX = (mouseX - pagePosition[0]) / pageZoom;
 		const worldY = (mouseY - pagePosition[1]) / pageZoom;
 
-		const oldZoom = pageZoom;
 		pageZoom += event.wheelDeltaY / 1000.0;
 		pageZoom = Math.max(0.3, Math.min(5.0, pageZoom));
 
@@ -96,6 +96,8 @@
 	}
 </script>
 
+<OrnamentOptions />
+
 <div class="ui">
 	{#if isAuthed}
 		<div class="profile-card">
@@ -108,6 +110,9 @@
 			</button>
 			<button class="secondary-button" onclick={cancelOrnament}>
 				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/post-cancel" alt="cancel" />
+			</button>
+			<button class="secondary-button" onclick={openOrnamentOptions}>
+				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/controls" alt="options" />
 			</button>
 		{:else}
 			<button class="secondary-button" onclick={newOrnament}>

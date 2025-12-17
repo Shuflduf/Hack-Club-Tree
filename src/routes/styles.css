@@ -12,6 +12,45 @@ html {
 .ui {
 	z-index: 5;
 	position: fixed;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.secondary-button {
+	background-image:
+		linear-gradient(
+			rgba(255, 255, 255, 0.05) 25%,
+			transparent 25%,
+			transparent 75%,
+			rgba(255, 255, 255, 0.05) 75%,
+			rgba(255, 255, 255, 0.05)
+		),
+		linear-gradient(
+			90deg,
+			rgba(255, 255, 255, 0.05) 25%,
+			transparent 25%,
+			transparent 75%,
+			rgba(255, 255, 255, 0.05) 75%,
+			rgba(255, 255, 255, 0.05)
+		);
+	background-color: #4f8fba;
+	background-repeat: repeat;
+	border: none;
+
+	width: 46px;
+	padding: 5px;
+	color: #f8e9d3;
+	font-family: 'Jua';
+	cursor: pointer;
+	border-radius: 10px;
+	box-shadow: var(--shadow);
+	font-size: 0;
+
+	img {
+		height: 36px;
+		margin: 0;
+	}
 }
 
 .profile-card {

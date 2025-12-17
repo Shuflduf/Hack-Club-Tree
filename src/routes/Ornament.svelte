@@ -3,11 +3,17 @@
 		$props();
 </script>
 
-<img {src} alt="ornament" style={`top: ${position[1]}px; left: ${position[0]}px`} />
+<img
+	{src}
+	draggable="false"
+	alt="ornament"
+	style={`top: ${position[1]}px; left: ${position[0]}px`}
+/>
 
 <style>
 	img {
 		height: 50px;
 		position: absolute;
+		user-select: none;
 	}
 </style>

@@ -65,7 +65,7 @@
 
 		const oldZoom = pageZoom;
 		pageZoom += event.wheelDeltaY / 1000.0;
-		pageZoom = Math.max(0.5, Math.min(5.0, pageZoom));
+		pageZoom = Math.max(0.3, Math.min(5.0, pageZoom));
 
 		pagePosition = [mouseX - worldX * pageZoom, mouseY - worldY * pageZoom];
 	}
@@ -84,7 +84,7 @@
 		draftOrnamentPosition = undefined;
 	}
 
-	function placeOrnament() {
+	function confirmOrnament() {
 		addingNewOrnament = false;
 		console.log('PLACED ', draftOrnamentPosition);
 	}
@@ -97,10 +97,16 @@
 			<h1>{profile.display_name}</h1>
 		</div>
 		{#if addingNewOrnament}
-			<button onclick={placeOrnament}>CONFIRM</button>
-			<button onclick={cancelOrnament}>CANCEL</button>
+			<button class="secondary-button" onclick={confirmOrnament}>
+				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/checkmark" alt="confirm" />
+			</button>
+			<button class="secondary-button" onclick={cancelOrnament}>
+				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/post-cancel" alt="cancel" />
+			</button>
 		{:else}
-			<button onclick={newOrnament}>NEW</button>
+			<button class="secondary-button" onclick={newOrnament}>
+				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/plus-fill" alt="new" />
+			</button>
 		{/if}
 	{:else}
 		<a href="https://auth.hackclub.com/oauth/authorize?{authParams}" class="login-button">Log In</a>

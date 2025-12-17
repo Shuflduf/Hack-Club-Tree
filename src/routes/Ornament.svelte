@@ -3,13 +3,12 @@
 
 </script>
 
-<img {src} alt="ornament" />
+<img {src} alt="ornament" style={`top: ${position[1]}px; left: ${position[0]}px`} />
 
 <style>
-
   img {
     width: 50px;
+    position: absolute;
   }
-
 </style>
 

@@ -1,13 +1,15 @@
 <script lang="ts">
 	import './styles.css';
-	import Ornament from './Ornament.svelte';
+	import OrnamentImg from './OrnamentImg.svelte';
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
 	import type { PageProps } from './$types';
+	import type { Ornament } from '$lib';
 
 	type Position = [number, number];
 
 	let { data }: PageProps = $props();
+	let ornaments: Ornament[] = $state([]);
 	let isAuthed = Object.keys(data).length !== 0;
 	let profile = data;
 	let pagePosition: Position = $state([0.0, 0.0]);
@@ -28,7 +30,7 @@
 	const authParams = new URLSearchParams(authProps).toString();
 
 	onMount(() => {
-		fetch('/api/get_ornaments').then((c) => c.json().then((b) => console.log(b)));
+		fetch('/api/get_ornaments').then((c) => c.json().then((b) => (ornaments = b)));
 		const screen = document.body;
 		screen.addEventListener('mousedown', (event: MouseEvent) => {
 			mouseDown = true;
@@ -123,6 +125,10 @@
 >
 	<img src="tree.png" alt="tree" class="tree" draggable="false" />
 	{#if draftOrnamentPosition != undefined}
-		<Ornament placed={false} position={draftOrnamentPosition} src={profile.image_192} />
+		<OrnamentImg placed={false} position={draftOrnamentPosition} src={profile.image_192} />
 	{/if}
+
+	{#each ornaments as orn}
+		<OrnamentImg placed={true} position={orn.ornament_position} src={orn.pfp_url} />
+	{/each}
 </div>

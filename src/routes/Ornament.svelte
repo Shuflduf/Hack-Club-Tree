@@ -7,7 +7,7 @@
 	{src}
 	draggable="false"
 	alt="ornament"
-	class={placed ? "" : "pulsing"}
+	class={placed ? '' : 'pulsing'}
 	style={`top: ${position[1]}px; left: ${position[0]}px`}
 />
 
@@ -23,7 +23,8 @@
 	}
 
 	@keyframes pulse {
-		0%, 100% {
+		0%,
+		100% {
 			filter: brightness(1);
 		}
 		50% {

@@ -71,9 +71,6 @@
 	}
 
 	async function newOrnament() {
-		// const req = await fetch("/api/move_ornament", { method: "POST", body: JSON.stringify({position: mousePos}) })
-		// const res = await req.json()
-		// console.log(res)
 		addingNewOrnament = true;
 		movingNewOrnament = true;
 		draftOrnamentPosition = undefined;
@@ -84,9 +81,19 @@
 		draftOrnamentPosition = undefined;
 	}
 
-	function confirmOrnament() {
+	async function confirmOrnament() {
+		if (draftOrnamentPosition == undefined) {
+			return;
+		}
 		addingNewOrnament = false;
 		console.log('PLACED ', draftOrnamentPosition);
+		const pos = [Math.round(draftOrnamentPosition[0]), Math.round(draftOrnamentPosition[1])];
+		const req = await fetch('/api/move_ornament', {
+			method: 'POST',
+			body: JSON.stringify({ position: pos })
+		});
+		const res = await req.json();
+		console.log(res);
 	}
 </script>
 

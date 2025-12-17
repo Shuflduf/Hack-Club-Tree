@@ -13,8 +13,16 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
 	const ornamentPosStr = `(${ornamentPos[0]}, ${ornamentPos[1]})`;
 	const slack_id = await getSlackId(cookies.get('access_token') as string);
 	const profile = await getProfileInfo(slack_id);
-	const sqlInstruction =
-		'INSERT INTO users(slack_id, username, pfp_url, ornament_position, last_moved_at) VALUES($1, $2, $3, $4, $5)';
+	const sqlInstruction = `
+INSERT INTO users(slack_id, username, pfp_url, ornament_position, last_moved_at)
+VALUES($1, $2, $3, $4, $5)
+ON CONFLICT (slack_id)
+DO UPDATE SET
+	username = $2,
+	pfp_url = $3,
+	ornament_position = $4,
+	last_moved_at = $5
+`;
 	const values = [
 		slack_id,
 		profile.display_name,

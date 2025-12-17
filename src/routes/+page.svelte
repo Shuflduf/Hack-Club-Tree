@@ -57,9 +57,17 @@
 	}
 
 	function mouseWheel(event: WheelEvent) {
-		console.log(event.wheelDeltaY);
+		const mouseX = event.clientX;
+		const mouseY = event.clientY;
+
+		const worldX = (mouseX - pagePosition[0]) / pageZoom;
+		const worldY = (mouseY - pagePosition[1]) / pageZoom;
+
+		const oldZoom = pageZoom;
 		pageZoom += event.wheelDeltaY / 1000.0;
 		pageZoom = Math.max(0.5, Math.min(5.0, pageZoom));
+
+		pagePosition = [mouseX - worldX * pageZoom, mouseY - worldY * pageZoom];
 	}
 
 	async function newOrnament() {

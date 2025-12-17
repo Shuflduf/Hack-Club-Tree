@@ -111,12 +111,8 @@
 	class="screen"
 	style={`top: ${pagePosition[1]}px; left: ${pagePosition[0]}px; scale: ${pageZoom}`}
 >
-	<img src="tree.png" alt="tree" draggable="false" />
+	<img src="tree.png" alt="tree" class="tree" draggable="false" />
 	{#if draftOrnamentPosition != undefined}
-		<Ornament
-			placed={false}
-			position={draftOrnamentPosition}
-			src="https://avatars.slack-edge.com/2025-12-06/10094819889632_2e7e69699ad2fe3a7bdd_24.png"
-		/>
+		<Ornament placed={false} position={draftOrnamentPosition} src={profile.image_192} />
 	{/if}
 </div>

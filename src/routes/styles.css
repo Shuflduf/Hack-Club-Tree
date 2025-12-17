@@ -74,11 +74,11 @@ html {
 	width: 100dvw;
 	top: 0;
 	right: 0;
+}
 
-	img {
-		width: 100%;
-		user-select: none;
-		position: fixed;
-		/* scale: 1.5; */
-	}
+.tree {
+	width: 2000px;
+	user-select: none;
+	position: fixed;
+	/* scale: 1.5; */
 }

@@ -31,6 +31,9 @@
 			<div class="spacer"></div>
 			<div class="image-radio">
 				<label>
+					<input type="radio" name="decoration-choice" value="0" />
+				</label>
+				<label>
 					<input type="radio" name="decoration-choice" value="1" />
 					<img src="overlays/01_neon.png" alt="Neon" />
 				</label>

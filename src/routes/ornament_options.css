@@ -158,25 +158,32 @@ form {
 	gap: 8px;
 
 	label {
-		width: min-content;
-		height: 96px;
-		line-height: 0;
 		cursor: pointer;
+		background-color: var(--accent);
+		position: relative;
+		border-radius: 10px;
+		line-height: 0;
 	}
 
 	input {
+		cursor: pointer;
+		width: 96px;
+		height: 96px;
 		appearance: none;
 		margin: 0;
+		line-height: 0;
+		border-radius: 10px;
 	}
 
-	input:checked + img {
+	input:checked {
 		outline: 2px solid white;
 	}
 
 	img {
-		background-color: var(--accent);
-		border-radius: 10px;
+		position: absolute;
+		top: 0;
+		left: 0;
+
 		width: 96px;
-		height: 96px;
 	}
 }

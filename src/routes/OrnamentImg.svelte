@@ -47,6 +47,7 @@
 
 	img.pulsing {
 		animation: pulse 4s infinite;
+		cursor: move;
 	}
 
 	@keyframes pulse {

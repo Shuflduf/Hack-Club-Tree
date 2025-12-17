@@ -31,5 +31,9 @@ async function getProfile(access_token: string): Promise<any> {
 		})
 	});
 	const slackInfo = await slackInfoReq.json();
-	return slackInfo.user.profile;
+	console.log(slackInfo);
+	return {
+		profile: slackInfo.user.profile,
+		slack_id: slackInfo.user.id
+	};
 }

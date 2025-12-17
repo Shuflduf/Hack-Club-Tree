@@ -14,7 +14,8 @@
 	let { data }: PageProps = $props();
 	let ornaments: Ornament[] = $state([]);
 	let isAuthed = Object.keys(data).length !== 0;
-	let profile = data;
+	let profile = data.profile;
+	let slackId = data.slack_id;
 	let pagePosition: Position = $state([0.0, 0.0]);
 	let pageZoom = $state(1.0);
 	let mousePos: Position = [0.0, 0.0];
@@ -38,6 +39,7 @@
 	const authParams = new URLSearchParams(authProps).toString();
 
 	onMount(() => {
+		console.log(profile);
 		fetch('/api/get_ornaments').then((c) => c.json().then((b) => (ornaments = b)));
 		const screen = document.body;
 		screen.addEventListener('mousedown', (event: MouseEvent) => {
@@ -59,8 +61,8 @@
 		}
 		if (movingNewOrnament) {
 			draftOrnamentPosition = [
-				(event.clientX - pagePosition[0]) / pageZoom,
-				(event.clientY - pagePosition[1]) / pageZoom
+				(event.clientX - pagePosition[0]) / pageZoom - 25,
+				(event.clientY - pagePosition[1]) / pageZoom - 25
 			];
 		}
 	}
@@ -172,11 +174,13 @@
 	{/if}
 
 	{#each ornaments as orn}
-		<OrnamentImg
-			placed={true}
-			position={orn.ornament_position}
-			src={orn.pfp_url}
-			config={getConfig(orn)}
-		/>
+		{#if orn.slack_id != slackId && !addingNewOrnament}
+			<OrnamentImg
+				placed={true}
+				position={orn.ornament_position}
+				src={orn.pfp_url}
+				config={getConfig(orn)}
+			/>
+		{/if}
 	{/each}
 </div>

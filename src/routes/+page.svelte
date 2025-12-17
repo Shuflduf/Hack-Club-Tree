@@ -178,11 +178,18 @@
 	{#if draftOrnamentPosition != undefined}
 		<OrnamentImg
 			placed={false}
-			position={draftOrnamentPosition}
-			src={profile.image_192}
-			config={currentConfig}
-			display_name={profile.display_name}
-			slack_id={slackId}
+			orn={{
+				created_at: new Date(),
+				ornament_position: draftOrnamentPosition,
+				pfp_url: profile.image_192,
+				decoration_index: currentConfig.decoration,
+				flipped: currentConfig.flipped,
+				likes: 0,
+				rotation: currentConfig.rotation_degress,
+				slack_id: slackId,
+				updated_at: new Date(),
+				username: profile.display_name
+			}}
 		/>
 	{/if}
 
@@ -190,11 +197,7 @@
 		{#if orn.slack_id != slackId || !addingNewOrnament}
 			<OrnamentImg
 				placed={true}
-				position={orn.ornament_position}
-				src={orn.pfp_url}
-				config={getConfig(orn)}
-				display_name={orn.username}
-				slack_id={orn.slack_id}
+				{orn}
 			/>
 		{/if}
 	{/each}

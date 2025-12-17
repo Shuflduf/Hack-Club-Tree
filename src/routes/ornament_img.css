@@ -1,0 +1,50 @@
+img {
+	user-select: none;
+}
+
+.info {
+	background-color: #75a843;
+	font-family: 'Jua';
+	margin-top: 20px;
+
+	a {
+		background-color: #75a843;
+		padding: 8px 24px;
+		position: absolute;
+		top: 0;
+	}
+}
+
+.ornament {
+	position: absolute;
+	display: flex;
+}
+
+.profile {
+	height: 50px;
+	border-radius: 50%;
+}
+
+.overlay {
+	position: absolute;
+	height: 50px;
+	left: -2px;
+	top: 1px;
+	scale: 1.55;
+}
+
+img.pulsing {
+	animation: pulse 4s infinite;
+	cursor: move;
+}
+
+@keyframes pulse {
+	0%,
+	100% {
+		filter: brightness(1);
+	}
+
+	50% {
+		filter: brightness(0.7);
+	}
+}

@@ -1,6 +1,6 @@
 <div class="background">
 	<form>
-		<div class="question">
+		<div class="question yellow">
 			<h1>Transform</h1>
 			<div class="spacer"></div>
 			<div class="answer">
@@ -9,7 +9,29 @@
 					src="https://icons.hackclub.com/api/icons/0xf8e9d3/view-reload"
 					alt="rotation"
 				/>
-				<input type="range" min="-180" max="180" step="10" />
+				<input type="range" min="-180" max="180" step="20" />
+			</div>
+			<div class="answer">
+				<img
+					draggable="false"
+					src="https://icons.hackclub.com/api/icons/0xf8e9d3/expand"
+					alt="flip"
+				/>
+				<input type="checkbox" />
+			</div>
+			<div class="subtitle">Position related info</div>
+		</div>
+
+		<div class="question red">
+			<h1>Decoration</h1>
+			<div class="spacer"></div>
+			<div class="answer">
+				<img
+					draggable="false"
+					src="https://icons.hackclub.com/api/icons/0xf8e9d3/view-reload"
+					alt="rotation"
+				/>
+				<input type="range" min="-180" max="180" step="20" />
 			</div>
 			<div class="answer">
 				<img
@@ -25,6 +47,20 @@
 </div>
 
 <style>
+	.yellow {
+		--bg: #dd9f40;
+		--text: #f8e9d3;
+		--accent: #bf782b;
+		--subtitle-text: #884b2b;
+		--subtitle-bg: #e7bf6e;
+	}
+	.red {
+		--bg: #be4b53;
+		--text: #f8e9d3;
+		--accent: #a3383f;
+		--subtitle-bg: #f9b19f;
+		--subtitle-text: #592c26;
+	}
 	.background {
 		width: 100dvw;
 		height: 100dvh;
@@ -32,7 +68,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		backdrop-filter: blur(5px);
+		backdrop-filter: blur(2px);
 		z-index: 20;
 	}
 	form {
@@ -56,7 +92,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 16px;
-		background-color: #dd9f40;
+		background-color: var(--bg);
 		margin-top: 40px;
 		position: relative;
 		border-radius: 0 10px 10px 10px;
@@ -72,7 +108,7 @@
 			padding: 8px 24px;
 			border-radius: 10px 10px 0 0;
 
-			background-color: #dd9f40;
+			background-color: var(--bg);
 		}
 
 		.spacer {
@@ -87,18 +123,18 @@
 		input {
 			margin: 0;
 			padding: 0 16px;
-			background-color: #f8e9d3;
+			background-color: var(--text);
 			appearance: none;
 			border-radius: 0 8px 8px 0;
 			cursor: pointer;
 			box-shadow: var(--shadow);
+			position: relative;
 		}
 
 		input[type='checkbox'] {
-			background-color: #f8e9d3;
+			background-color: var(--text);
 			width: 48px;
 			cursor: pointer;
-			position: relative;
 		}
 		input[type='checkbox']::before {
 			content: '';
@@ -109,7 +145,7 @@
 
 			width: 24px;
 			height: 24px;
-			border: 2px solid #bf782b;
+			border: 2px solid var(--accent);
 			border-radius: 8px;
 		}
 		input[type='checkbox']:checked::before {
@@ -121,33 +157,34 @@
 
 			width: 24px;
 			height: 24px;
-			background-color: #bf782b;
+			background-color: var(--accent);
 			border-radius: 8px;
 		}
 
 		input[type='range']::-moz-range-track {
-			background-color: #bf782b;
+			background-color: var(--accent);
 			height: 2px;
 		}
 		input[type='range']::-moz-range-thumb {
-			background: #f8e9d3;
+			background: var(--text);
 			border-radius: 50%;
-			border: 2px solid #bf782b;
+			border: 2px solid var(--accent);
 		}
 
 		img {
-			background-color: #bf782b;
+			background-color: var(--accent);
 			border-radius: 8px 0 0 8px;
 			height: 48px;
+			width: 48px;
 			user-select: none;
 			box-shadow: var(--shadow);
 		}
 
 		.subtitle {
-			background-color: #e7bf6e;
+			background-color: var(--subtitle-bg);
 			border-radius: 0 0 8px 8px;
 			padding: 8px;
-			color: #884b2b;
+			color: var(--subtitle-text);
 			font-size: 0.875rem;
 		}
 	}

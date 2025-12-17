@@ -7,7 +7,7 @@
 		<div class="question yellow">
 			<h1>Transform</h1>
 			<div class="spacer"></div>
-			<div class="answer">
+			<div class="range-input">
 				<img
 					draggable="false"
 					src="https://icons.hackclub.com/api/icons/0xf8e9d3/view-reload"
@@ -15,7 +15,7 @@
 				/>
 				<input type="range" min="-180" max="180" step="20" />
 			</div>
-			<div class="answer">
+			<div class="checkbox-input">
 				<img
 					draggable="false"
 					src="https://icons.hackclub.com/api/icons/0xf8e9d3/expand"
@@ -29,7 +29,7 @@
 		<div class="question red">
 			<h1>Decoration</h1>
 			<div class="spacer"></div>
-			<div class="options">
+			<div class="image-radio">
 				<label>
 					<input type="radio" name="decoration-choice" value="1" />
 					<img src="overlays/01_neon.png" alt="Neon" />

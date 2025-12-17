@@ -8,13 +8,25 @@ export type Ornament = {
 	created_at: Date;
 };
 
-enum Decoration {
+export enum Decoration {
 	None,
-	Glow,
+	Neon,
+	Hearts,
+	Snowman,
+	Jolly,
 	Lights,
-	Antlers,
-	Hearts
+	Gift
 }
+
+export const DecorationFiles: Record<Decoration, string> = {
+	'0': '',
+	'1': 'overlays/01_neon.png',
+	'2': 'overlays/02_hearts.png',
+	'3': 'overlays/03_snowman.png',
+	'4': 'overlays/04_jolly.png',
+	'5': 'overlays/05_lights.png',
+	'6': 'overlays/06_gift.png'
+};
 
 export type OrnamentConfig = {
 	rotation_degress: number;

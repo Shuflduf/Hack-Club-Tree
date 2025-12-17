@@ -25,9 +25,37 @@
 	z-index: 20;
 }
 
-form {
+.preview {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	img {
+		width: 192px;
+	}
+}
+
+.image-and-overlay {
+	position: relative;
+
+	.overlay {
+		position: absolute;
+		scale: 1.55;
+		top: 5px;
+		left: -8px;
+	}
+
+	.profile {
+		border-radius: 50%;
+		box-shadow: var(--shadow);
+	}
+}
+
+.menu {
+	display: grid;
+	grid-template-columns: min(600px, 60%) 1fr;
 	font-family: 'Jua';
-	width: min(600px, 80%);
+	width: min(792px, 80%);
 
 	padding: 32px;
 	background-color: #f8e9d3;

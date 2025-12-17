@@ -5,7 +5,7 @@
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
 	import type { PageProps } from './$types';
-	import type { Ornament } from '$lib';
+	import { Decoration, type Ornament, type OrnamentConfig } from '$lib';
 
 	type Position = [number, number];
 
@@ -20,6 +20,11 @@
 	let addingNewOrnament = $state(false);
 	let movingNewOrnament = $state(false);
 	let draftOrnamentPosition: undefined | Position = $state(undefined);
+	let currentConfig: OrnamentConfig = $state({
+		decoration: Decoration.None,
+		flipped: false,
+		rotation_degress: 0
+	});
 	// let screen: HTMLElement | undefined = $state()
 
 	const authProps = {
@@ -96,7 +101,7 @@
 	}
 </script>
 
-<OrnamentOptions />
+<OrnamentOptions pfpUrl={profile.image_512} {currentConfig} />
 
 <div class="ui">
 	{#if isAuthed}

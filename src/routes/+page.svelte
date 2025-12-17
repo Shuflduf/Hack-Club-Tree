@@ -39,7 +39,6 @@
 	const authParams = new URLSearchParams(authProps).toString();
 
 	onMount(() => {
-		console.log(profile);
 		fetch('/api/get_ornaments').then((c) => c.json().then((b) => (ornaments = b)));
 		const screen = document.body;
 		screen.addEventListener('mousedown', (event: MouseEvent) => {
@@ -95,6 +94,18 @@
 		if (draftOrnamentPosition == undefined) {
 			return;
 		}
+		let oldOrnIndex = ornaments.findIndex((orn) => orn.slack_id == slackId);
+		let oldOrn = ornaments[oldOrnIndex];
+		ornaments.splice(oldOrnIndex);
+		let newOrn: Ornament = {
+			...oldOrn,
+			ornament_position: draftOrnamentPosition,
+			decoration_index: currentConfig.decoration,
+			rotation: currentConfig.rotation_degress,
+			flipped: currentConfig.flipped,
+			updated_at: new Date()
+		};
+		ornaments.push(newOrn);
 		addingNewOrnament = false;
 		const pos = [Math.round(draftOrnamentPosition[0]), Math.round(draftOrnamentPosition[1])];
 		await fetch('/api/move_ornament', {
@@ -106,7 +117,7 @@
 				decoration: currentConfig.decoration
 			})
 		});
-		// const res = await req.json();
+		draftOrnamentPosition = undefined;
 	}
 
 	function openOrnamentOptions() {
@@ -174,7 +185,7 @@
 	{/if}
 
 	{#each ornaments as orn}
-		{#if orn.slack_id != slackId && !addingNewOrnament}
+		{#if orn.slack_id != slackId || !addingNewOrnament}
 			<OrnamentImg
 				placed={true}
 				position={orn.ornament_position}

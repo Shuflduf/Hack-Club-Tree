@@ -5,9 +5,17 @@
 		position,
 		placed,
 		src,
-		config
-	}: { position: [number, number]; placed: boolean; src: string; config: OrnamentConfig } =
-		$props();
+		config,
+		display_name,
+		slack_id
+	}: {
+		position: [number, number];
+		placed: boolean;
+		src: string;
+		config: OrnamentConfig;
+		display_name: string;
+		slack_id: string;
+	} = $props();
 
 	let decorationUrl = $derived(DecorationFiles[config.decoration]);
 </script>
@@ -23,6 +31,7 @@
 	{#if config.decoration != 0}
 		<img src={decorationUrl} class="overlay" alt="overlay" draggable="false" />
 	{/if}
+	<div class="info"><a href={`https://hackclub.slack.com/team/${slack_id}`}>{display_name}</a></div>
 </div>
 
 <style>
@@ -30,9 +39,15 @@
 		user-select: none;
 	}
 
+	.info {
+		background-color: white;
+	}
+
 	.ornament {
 		position: absolute;
+		display: flex;
 	}
+
 	.profile {
 		height: 50px;
 		border-radius: 50%;

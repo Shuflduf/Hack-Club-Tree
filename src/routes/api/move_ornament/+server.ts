@@ -35,6 +35,7 @@ DO UPDATE SET
 		flipped
 	];
 	const res = await client.query(sqlInstruction, values);
+	console.log(slack_id);
 	console.log(reqBody);
 	console.log(profile);
 	console.log(res);

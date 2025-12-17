@@ -181,6 +181,8 @@
 			position={draftOrnamentPosition}
 			src={profile.image_192}
 			config={currentConfig}
+			display_name={profile.display_name}
+			slack_id={slackId}
 		/>
 	{/if}
 
@@ -191,6 +193,8 @@
 				position={orn.ornament_position}
 				src={orn.pfp_url}
 				config={getConfig(orn)}
+				display_name={orn.username}
+				slack_id={orn.slack_id}
 			/>
 		{/if}
 	{/each}

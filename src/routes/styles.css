@@ -1,82 +1,84 @@
 body {
-  position: fixed;
-  width: 100dvw;
-  height: 100dvh;
+	position: fixed;
+	width: 100dvw;
+	height: 100dvh;
 }
 
 html {
-  background-image: url("bg.jpg");
-  background-size: cover;
+	background-image: url('bg.jpg');
+	background-size: cover;
 }
 
 .ui {
-  z-index: 5;
-  position: fixed;
+	z-index: 5;
+	position: fixed;
 }
 
 .profile-card {
-  z-index: 5;
-  display: flex;
-  background-color: #be4b53;
-  padding: 10px;
-  padding-right: 0;
-  border-radius: 10px;
-  width: min-content;
-  box-shadow: var(--shadow);
-  /* position: fixed; */
+	z-index: 5;
+	display: flex;
+	background-color: #be4b53;
+	padding: 10px;
+	padding-right: 0;
+	border-radius: 10px;
+	width: min-content;
+	box-shadow: var(--shadow);
+	/* position: fixed; */
 
-  img {
-    height: 40px;
-    border-radius: 100%;
-    /* outline: 10px solid #be4b53; */
-    z-index: 10;
-    box-shadow: var(--shadow), 0px 0px 0px 10px #be4b53;
+	img {
+		height: 40px;
+		border-radius: 100%;
+		/* outline: 10px solid #be4b53; */
+		z-index: 10;
+		box-shadow:
+			var(--shadow),
+			0px 0px 0px 10px #be4b53;
+	}
 
-  }
-
-  h1 {
-    clip-path: polygon(0 0, 100% 0%, 90% 100%, 0% 100%);
-    text-shadow: var(--shadow);
-    background-color: #a3383f;
-    margin: 0;
-    font-size: 1.5rem;
-    position: relative;
-    left: -10px;
-    padding-top: 5px;
-    padding-right: 20px;
-    padding-left: 30px;
-    font-family: "Jua";
-    color: #f8e9d3;
-    /* margin-left: 10px; */
-  }
+	h1 {
+		clip-path: polygon(0 0, 100% 0%, 90% 100%, 0% 100%);
+		text-shadow: var(--shadow);
+		background-color: #a3383f;
+		margin: 0;
+		font-size: 1.5rem;
+		position: relative;
+		left: -10px;
+		padding-top: 5px;
+		padding-right: 20px;
+		padding-left: 30px;
+		font-family: 'Jua';
+		color: #f8e9d3;
+		/* margin-left: 10px; */
+	}
 }
 
 .login-button {
-  z-index: 5;
-  text-shadow: var(--shadow);
-  display: flex;
-  background-color: #be4b53;
-  padding: 10px;
-  border-radius: 10px;
-  /* width: min-content; */
-  box-shadow: var(--shadow);
-  position: fixed;
-  font-family: "Jua";
-  color: #f8e9d3;
-  font-size: 1.5rem;
+	z-index: 5;
+	text-shadow: var(--shadow);
+	display: flex;
+	background-color: #be4b53;
+	padding: 10px;
+	border-radius: 10px;
+	/* width: min-content; */
+	box-shadow: var(--shadow);
+	position: fixed;
+	font-family: 'Jua';
+	color: #f8e9d3;
+	font-size: 1.5rem;
 }
 
 .screen {
-  position: fixed;
-  height: 100dvh;
-  width: 100dvw;
-  top: 0;
-  right: 0;
+	transform-origin: top left;
+	position: fixed;
+	height: 100dvh;
+	width: 100dvw;
+	top: 0;
+	right: 0;
 
-  img {
-    width: 100%;
-    user-select: none;
-    position: fixed;
-    /* scale: 1.5; */
-  }
+	img {
+		width: 100%;
+		user-select: none;
+		position: fixed;
+		/* scale: 1.5; */
+	}
 }

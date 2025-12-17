@@ -28,7 +28,7 @@
 	const authParams = new URLSearchParams(authProps).toString();
 
 	onMount(() => {
-		fetch('/api/get_ornaments');
+		fetch('/api/get_ornaments').then((c) => c.json().then((b) => console.log(b)));
 		const screen = document.body;
 		screen.addEventListener('mousedown', (event: MouseEvent) => {
 			mouseDown = true;

@@ -1,11 +1,6 @@
 import { env } from '$env/dynamic/private';
+import { client } from '$lib/server/db';
 import type { RequestHandler } from './$types';
-import { Client } from 'pg';
-
-const client = new Client({
-	connectionString: env.PG_CONNECTION_STRING
-});
-await client.connect();
 
 export const POST: RequestHandler = async ({ cookies, request }) => {
 	const reqBody = await request.json();
@@ -34,7 +29,9 @@ DO UPDATE SET
 	console.log(reqBody);
 	console.log(profile);
 	console.log(res);
-	return new Response('balls');
+
+	// TODO: this might not be true
+	return new Response(JSON.stringify({ success: true }));
 };
 
 async function getSlackId(accessToken: string): Promise<string> {

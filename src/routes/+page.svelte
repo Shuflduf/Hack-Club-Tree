@@ -28,8 +28,8 @@
 	const authParams = new URLSearchParams(authProps).toString();
 
 	onMount(() => {
+		fetch('/api/get_ornaments');
 		const screen = document.body;
-		console.log(data);
 		screen.addEventListener('mousedown', (event: MouseEvent) => {
 			mouseDown = true;
 			mousePos = [event.clientX - pagePosition[0], event.clientY - pagePosition[1]];
@@ -52,7 +52,6 @@
 				(event.clientX - pagePosition[0]) / pageZoom,
 				(event.clientY - pagePosition[1]) / pageZoom
 			];
-			console.log(draftOrnamentPosition);
 		}
 	}
 
@@ -86,21 +85,19 @@
 			return;
 		}
 		addingNewOrnament = false;
-		console.log('PLACED ', draftOrnamentPosition);
 		const pos = [Math.round(draftOrnamentPosition[0]), Math.round(draftOrnamentPosition[1])];
-		const req = await fetch('/api/move_ornament', {
+		await fetch('/api/move_ornament', {
 			method: 'POST',
 			body: JSON.stringify({ position: pos })
 		});
-		const res = await req.json();
-		console.log(res);
+		// const res = await req.json();
 	}
 </script>
 
 <div class="ui">
 	{#if isAuthed}
 		<div class="profile-card">
-			<img src={profile.image_1024} alt="profile" />
+			<img src={profile.image_512} alt="profile" />
 			<h1>{profile.display_name}</h1>
 		</div>
 		{#if addingNewOrnament}

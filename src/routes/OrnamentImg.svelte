@@ -27,7 +27,7 @@
 
 	onMount(() => {
 		document.addEventListener('mousedown', (ev: MouseEvent) => {
-			if (!selfComponent.contains(ev.target)) {
+			if (selfComponent && !selfComponent.contains(ev.target as Node)) {
 				infoOpened = false;
 			}
 		});
@@ -56,6 +56,13 @@
 			})
 		);
 	}
+
+	function openInfo() {
+		if (!placed) {
+			return;
+		}
+		infoOpened = true;
+	}
 </script>
 
 <div
@@ -63,7 +70,7 @@
 	style={`top: ${position[1]}px; left: ${position[0]}px`}
 	bind:this={selfComponent}
 >
-	<button class="no-button" onclick={() => (infoOpened = true)}>
+	<button class="no-button" onclick={openInfo}>
 		<img
 			src={orn.pfp_url}
 			draggable="false"

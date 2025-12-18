@@ -22,7 +22,7 @@ LEFT JOIN likes l ON u.slack_id = l.liked_id
 GROUP BY u.slack_id;
 `
 		: `
-SELECT u.*, COUNT(l.slack_id) as like_count
+SELECT u.*, COUNT(l.slack_id) as likes
 FROM users u
 LEFT JOIN likes l ON u.slack_id = l.liked_id
 GROUP BY u.slack_id;

@@ -108,7 +108,7 @@
 		ornaments.push(newOrn);
 		addingNewOrnament = false;
 		const pos = [Math.round(draftOrnamentPosition[0]), Math.round(draftOrnamentPosition[1])];
-		await fetch('/api/move_ornament', {
+		const res = await fetch('/api/move_ornament', {
 			method: 'POST',
 			body: JSON.stringify({
 				position: pos,
@@ -117,6 +117,7 @@
 				decoration: currentConfig.decoration
 			})
 		});
+		console.log(await res.json());
 		draftOrnamentPosition = undefined;
 	}
 

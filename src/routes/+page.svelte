@@ -1,5 +1,6 @@
 <script lang="ts">
 	import './styles.css';
+	import Errors from './Errors.svelte';
 	import OrnamentImg from './OrnamentImg.svelte';
 	import OrnamentOptions from './OrnamentOptions.svelte';
 	import { env } from '$env/dynamic/public';
@@ -10,6 +11,7 @@
 	type Position = [number, number];
 
 	let ornamentOptionsMenu: any = $state();
+	let errorHandler: any = $state();
 
 	let { data }: PageProps = $props();
 	let ornaments: Ornament[] = $state([]);
@@ -117,6 +119,11 @@
 				decoration: currentConfig.decoration
 			})
 		});
+		const respBody = await res.json();
+		if (respBody.error) {
+			recievedError(respBody.error);
+		}
+
 		console.log(await res.json());
 		draftOrnamentPosition = undefined;
 	}
@@ -136,6 +143,10 @@
 		ornaments[targetIndex].has_been_liked = isLiked;
 		ornaments = ornaments;
 	}
+
+	function recievedError(message: string) {
+		errorHandler.spawnMessage(message);
+	}
 </script>
 
 {#if isAuthed}
@@ -145,6 +156,8 @@
 		finished={updateExistingConfig}
 	/>
 {/if}
+
+<Errors bind:this={errorHandler} />
 
 <div class="ui">
 	{#if isAuthed}

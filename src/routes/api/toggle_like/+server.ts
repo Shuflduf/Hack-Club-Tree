@@ -26,6 +26,7 @@ FROM likes
 WHERE liked_id = $1;
 	`;
 	const likeCount = (await client.query(likeCountSql, [reqBody.likedId])).rows[0].like_count;
+	// console.log(likedState, likeCount)
 
 	return new Response(JSON.stringify({ liked: likedState, like_count: likeCount }));
 };

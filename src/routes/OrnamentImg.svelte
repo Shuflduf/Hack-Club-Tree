@@ -47,11 +47,9 @@
 		}).then((r) =>
 			r.json().then((respBody) => {
 				const ornLikeCount = respBody.like_count;
-				const ornLiked = respBody.liked == 'true';
+				const ornLiked = respBody.liked;
+				liked = ornLiked;
 				updateOrn?.(orn.slack_id, ornLikeCount, ornLiked);
-				//  const likedPost = respBody.liked == "true";
-				//  liked = likedPost
-				// console.log(likedPost)
 				disabled = false;
 			})
 		);

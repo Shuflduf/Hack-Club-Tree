@@ -21,6 +21,7 @@ img {
 	margin-left: 24px;
 	box-shadow: var(--shadow);
 	position: absolute;
+	z-index: 10;
 	left: 54px;
 	top: -42px;
 

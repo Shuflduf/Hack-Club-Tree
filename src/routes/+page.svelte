@@ -103,18 +103,7 @@
 	}
 
 	function replaceOrn(targetSlackId: string, newOrn: Ornament) {
-		let oldOrnIndex = ornaments.findIndex((orn) => orn.slack_id == targetSlackId);
-		// let oldOrn = ornaments[oldOrnIndex];
-		ornaments.splice(oldOrnIndex);
-		// let newOrn: Ornament = {
-		// 	...oldOrn,
-		// 	ornament_position: draftOrnamentPosition,
-		// 	decoration_index: currentConfig.decoration,
-		// 	rotation: currentConfig.rotation_degress,
-		// 	flipped: currentConfig.flipped,
-		// 	updated_at: new Date()
-		// };
-		ornaments.push(newOrn);
+		ornaments = ornaments.map((orn) => (orn.slack_id == targetSlackId ? newOrn : orn));
 	}
 
 	async function confirmOrnament() {
@@ -123,17 +112,21 @@
 		}
 		let oldOrn = ornaments.find((orn) => orn.slack_id == slackId) as Ornament;
 		let backupOrn = $state.snapshot(oldOrn);
+		const pos: Position = [
+			Math.round(draftOrnamentPosition[0]),
+			Math.round(draftOrnamentPosition[1])
+		];
 		replaceOrn(slackId, {
 			...oldOrn,
-			ornament_position: draftOrnamentPosition,
+			ornament_position: pos,
 			decoration_index: currentConfig.decoration,
 			rotation: currentConfig.rotation_degress,
 			flipped: currentConfig.flipped,
 			updated_at: new Date()
 		});
+		draftOrnamentPosition = undefined;
 
 		addingNewOrnament = false;
-		const pos = [Math.round(draftOrnamentPosition[0]), Math.round(draftOrnamentPosition[1])];
 		const res = await fetch('/api/move_ornament', {
 			method: 'POST',
 			body: JSON.stringify({
@@ -147,7 +140,6 @@
 		if (respBody.error) {
 			recievedError(respBody.error);
 			replaceOrn(slackId, backupOrn);
-			// draftOrnamentPosition = undefined;
 		}
 
 		draftOrnamentPosition = undefined;

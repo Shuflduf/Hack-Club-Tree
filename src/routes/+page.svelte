@@ -61,10 +61,19 @@
 			pagePosition = [event.clientX - mousePos[0], event.clientY - mousePos[1]];
 		}
 		if (movingNewOrnament) {
-			draftOrnamentPosition = [
+			const targetPosition: [number, number] = [
 				(event.clientX - pagePosition[0]) / pageZoom - 25,
 				(event.clientY - pagePosition[1]) / pageZoom - 25
 			];
+			if (
+				targetPosition[0] < 0 ||
+				targetPosition[0] > 2000 ||
+				targetPosition[1] < 0 ||
+				targetPosition[1] > 2300
+			) {
+				return;
+			}
+			draftOrnamentPosition = targetPosition;
 		}
 	}
 

@@ -138,11 +138,13 @@
 	}
 </script>
 
-<OrnamentOptions
-	pfpUrl={profile.image_512}
-	bind:this={ornamentOptionsMenu}
-	finished={updateExistingConfig}
-/>
+{#if isAuthed}
+	<OrnamentOptions
+		pfpUrl={profile.image_512}
+		bind:this={ornamentOptionsMenu}
+		finished={updateExistingConfig}
+	/>
+{/if}
 
 <div class="ui">
 	{#if isAuthed}
@@ -155,7 +157,7 @@
 				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/checkmark" alt="confirm" />
 			</button>
 			<button class="secondary-button" onclick={cancelOrnament}>
-				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/post-cancel" alt="cancel" />
+				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/view-close-small" alt="cancel" />
 			</button>
 			<button class="secondary-button" onclick={openOrnamentOptions}>
 				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/controls" alt="options" />
@@ -195,10 +197,7 @@
 
 	{#each ornaments as orn}
 		{#if orn.slack_id != slackId || !addingNewOrnament}
-			<OrnamentImg
-				placed={true}
-				{orn}
-			/>
+			<OrnamentImg placed={true} {orn} />
 		{/if}
 	{/each}
 </div>

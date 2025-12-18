@@ -1,9 +1,10 @@
 import { env } from '$env/dynamic/private';
-import { client } from '$lib/server/db';
+import { client, getSlackId } from '$lib/server/lib';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ cookies, request }) => {
 	const reqBody = await request.json();
+	console.log(reqBody);
 	const ornamentPos = reqBody.position;
 	const decorationIndex = reqBody.decoration;
 	const rotation = reqBody.rotation;
@@ -43,17 +44,6 @@ DO UPDATE SET
 	// TODO: this might not be true
 	return new Response(JSON.stringify({ success: true }));
 };
-
-async function getSlackId(accessToken: string): Promise<string> {
-	const userInfoUrl = 'https://auth.hackclub.com/oauth/userinfo';
-	const userInfoReq = await fetch(userInfoUrl, {
-		headers: {
-			Authorization: `Bearer ${accessToken}`
-		}
-	});
-	const userInfo = await userInfoReq.json();
-	return userInfo.slack_id;
-}
 
 async function getProfileInfo(slackId: string): Promise<any> {
 	const slackInfoUrl = 'https://slack.com/api/users.info';

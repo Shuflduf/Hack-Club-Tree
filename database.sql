@@ -3,7 +3,6 @@ CREATE TABLE IF NOT EXISTS users (
   username TEXT NOT NULL UNIQUE,
   pfp_url TEXT NOT NULL,
   ornament_position POINT NOT NULL,
-  -- likes INTEGER DEFAULT 0,
   decoration_index INTEGER NOT NULL,
   rotation INTEGER DEFAULT 0,
   flipped BOOLEAN DEFAULT FALSE,
@@ -14,5 +13,9 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS likes (
   slack_id TEXT NOT NULL,
   liked_id TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (slack_id, liked_id),
+  FOREIGN KEY (slack_id) REFERENCES users(slack_id) ON DELETE CASCADE,
+  FOREIGN KEY (liked_id) REFERENCES users(slack_id) ON DELETE CASCADE
 )
 

@@ -3,10 +3,20 @@
 	import { Decoration, DecorationFiles, type Ornament, type OrnamentConfig } from '$lib';
 	import { onMount } from 'svelte';
 
-	let { orn, placed }: { orn: Ornament; placed: boolean } = $props();
+	let {
+		orn,
+		placed,
+		updateOrn
+	}: {
+		orn: Ornament;
+		placed: boolean;
+		updateOrn: ((likedId: string, newLikeCount: number, isLiked: boolean) => void) | null;
+	} = $props();
 	let position = $derived(orn.ornament_position);
 	let infoOpened = $state(false);
 	let selfComponent: any = $state();
+	let liked = $state(orn.has_been_liked);
+	let disabled = $state(false);
 
 	let decorationUrl = $derived(DecorationFiles[orn.decoration_index as Decoration]);
 
@@ -22,6 +32,30 @@
 			}
 		});
 	});
+
+	function handleLikePress() {
+		if (disabled) {
+			return;
+		}
+		disabled = true;
+		liked = !liked;
+		fetch('/api/toggle_like', {
+			method: 'POST',
+			body: JSON.stringify({
+				likedId: orn.slack_id
+			})
+		}).then((r) =>
+			r.json().then((respBody) => {
+				const ornLikeCount = respBody.like_count;
+				const ornLiked = respBody.liked == 'true';
+				updateOrn?.(orn.slack_id, ornLikeCount, ornLiked);
+				//  const likedPost = respBody.liked == "true";
+				//  liked = likedPost
+				// console.log(likedPost)
+				disabled = false;
+			})
+		);
+	}
 </script>
 
 <div
@@ -46,10 +80,13 @@
 			<a href={`https://hackclub.slack.com/team/${orn.slack_id}`}>{orn.username}</a>
 
 			<div class="likes">
-				<button>
-					<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/thumbsup-fill" alt="like" />
+				<button {disabled} onclick={handleLikePress}>
+					<img
+						src={`https://icons.hackclub.com/api/icons/0xf8e9d3/${liked ? 'thumbsup-fill' : 'thumbsup'}`}
+						alt="like"
+					/>
 				</button>
-				<p>42</p>
+				<p>{orn.likes}</p>
 			</div>
 			<div class="created-at">
 				<span>Created at: {formatDate(orn.created_at)}</span>

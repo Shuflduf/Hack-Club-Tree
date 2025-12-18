@@ -4,6 +4,7 @@ export type Ornament = {
 	pfp_url: string;
 	ornament_position: [number, number];
 	likes: number;
+	has_been_liked: boolean;
 	updated_at: Date;
 	created_at: Date;
 	decoration_index: number;

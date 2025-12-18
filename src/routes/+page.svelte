@@ -129,12 +129,11 @@
 		currentConfig = newConfig;
 	}
 
-	function getConfig(orn: Ornament): OrnamentConfig {
-		return {
-			decoration: orn.decoration_index,
-			flipped: orn.flipped,
-			rotation_degress: orn.rotation
-		};
+	function updateOrn(likedId: string, newLikeCount: number, isLiked: boolean) {
+		const targetIndex = ornaments.findIndex((orn) => orn.slack_id == likedId);
+		ornaments[targetIndex].likes = newLikeCount;
+		ornaments[targetIndex].has_been_liked = isLiked;
+		ornaments = ornaments;
 	}
 </script>
 
@@ -181,23 +180,25 @@
 		<OrnamentImg
 			placed={false}
 			orn={{
-				created_at: new Date(),
-				ornament_position: draftOrnamentPosition,
+				slack_id: slackId,
+				username: profile.display_name,
 				pfp_url: profile.image_192,
+				likes: 0,
+				has_been_liked: false,
+				ornament_position: draftOrnamentPosition,
 				decoration_index: currentConfig.decoration,
 				flipped: currentConfig.flipped,
-				likes: 0,
 				rotation: currentConfig.rotation_degress,
-				slack_id: slackId,
 				updated_at: new Date(),
-				username: profile.display_name
+				created_at: new Date()
 			}}
+			updateOrn={null}
 		/>
 	{/if}
 
 	{#each ornaments as orn}
 		{#if orn.slack_id != slackId || !addingNewOrnament}
-			<OrnamentImg placed={true} {orn} />
+			<OrnamentImg placed={true} {orn} {updateOrn} />
 		{/if}
 	{/each}
 </div>

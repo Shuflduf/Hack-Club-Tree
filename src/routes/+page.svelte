@@ -13,6 +13,7 @@
 
 	let ornamentOptionsMenu: any = $state();
 	let errorHandler: any = $state();
+	let background: any = $state();
 
 	let { data }: PageProps = $props();
 	let ornaments: Ornament[] = $state([]);
@@ -31,7 +32,14 @@
 		flipped: false,
 		rotation_degress: 0
 	});
-	let currentOrnPosition: Position | null = [];
+	let currentOrnPosition: Position | null = $state(null);
+	$effect(() => {
+		if (background) {
+			// TODO: finish
+			background.style.backgroundPosition = `${pagePosition[0] * 0.3}px ${pagePosition[1] * 0.3}px`;
+			background.style.backgroundSize = `${pageZoom * 3000}px`;
+		}
+	});
 	// let screen: HTMLElement | undefined = $state()
 
 	const authProps = {
@@ -53,6 +61,7 @@
 				}
 			})
 		);
+		background = document.documentElement;
 		const screen = document.body;
 		screen.addEventListener('mousedown', (event: MouseEvent) => {
 			mouseDown = true;

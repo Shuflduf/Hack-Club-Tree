@@ -6,7 +6,7 @@ body {
 }
 
 html {
-	background-image: url('bg.jpg');
+	background-image: url(/bg.jpg);
 	background-size: cover;
 }
 
@@ -21,21 +21,17 @@ html {
 
 .secondary-button {
 	background-image:
-		linear-gradient(
+		linear-gradient(rgba(255, 255, 255, 0.05) 25%,
+			transparent 25%,
+			transparent 75%,
+			rgba(255, 255, 255, 0.05) 75%,
+			rgba(255, 255, 255, 0.05)),
+		linear-gradient(90deg,
 			rgba(255, 255, 255, 0.05) 25%,
 			transparent 25%,
 			transparent 75%,
 			rgba(255, 255, 255, 0.05) 75%,
-			rgba(255, 255, 255, 0.05)
-		),
-		linear-gradient(
-			90deg,
-			rgba(255, 255, 255, 0.05) 25%,
-			transparent 25%,
-			transparent 75%,
-			rgba(255, 255, 255, 0.05) 75%,
-			rgba(255, 255, 255, 0.05)
-		);
+			rgba(255, 255, 255, 0.05));
 	background-color: #4f8fba;
 	background-repeat: repeat;
 	border: none;

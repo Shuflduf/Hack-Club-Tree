@@ -6,24 +6,29 @@
 	let { orn, placed }: { orn: Ornament; placed: boolean } = $props();
 	let position = $derived(orn.ornament_position);
 	let infoOpened = $state(false);
+	let selfComponent: any = $state();
 
 	let decorationUrl = $derived(DecorationFiles[orn.decoration_index as Decoration]);
 
 	function formatDate(dateStr: string): string {
 		const date = new Date(dateStr);
 		return `${date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}`;
-		// return `${date.getDay()} ${date.toLocaleDateString}, ${date.getFullYear()}`
 	}
 
 	onMount(() => {
-		// this is stupid but its fine
 		document.addEventListener('mousedown', (ev: MouseEvent) => {
-			infoOpened = false;
+			if (!selfComponent.contains(ev.target)) {
+				infoOpened = false;
+			}
 		});
 	});
 </script>
 
-<div class="ornament" style={`top: ${position[1]}px; left: ${position[0]}px`}>
+<div
+	class="ornament"
+	style={`top: ${position[1]}px; left: ${position[0]}px`}
+	bind:this={selfComponent}
+>
 	<button class="no-button" onclick={() => (infoOpened = true)}>
 		<img
 			src={orn.pfp_url}

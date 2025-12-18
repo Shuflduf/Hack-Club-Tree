@@ -6,6 +6,8 @@ img {
 	background-color: transparent;
 	border: none;
 	cursor: pointer;
+	padding: 0;
+	line-height: 0;
 }
 
 .info {

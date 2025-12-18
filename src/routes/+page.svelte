@@ -110,20 +110,38 @@
 		if (draftOrnamentPosition == undefined) {
 			return;
 		}
-		let oldOrn = ornaments.find((orn) => orn.slack_id == slackId) as Ornament;
-		let backupOrn = $state.snapshot(oldOrn);
 		const pos: Position = [
 			Math.round(draftOrnamentPosition[0]),
 			Math.round(draftOrnamentPosition[1])
 		];
-		replaceOrn(slackId, {
-			...oldOrn,
+		let oldOrn: Ornament | undefined = ornaments.find((orn) => orn.slack_id == slackId);
+		let newOrn: Ornament = {
+			created_at: new Date(),
+			has_been_liked: false,
+			likes: 0,
+			pfp_url: profile.image_192,
+			slack_id: slackId,
+			username: profile.display_name,
 			ornament_position: pos,
 			decoration_index: currentConfig.decoration,
 			rotation: currentConfig.rotation_degress,
 			flipped: currentConfig.flipped,
 			updated_at: new Date()
-		});
+		};
+		let backupOrn: Ornament | null = null;
+		if (oldOrn) {
+			backupOrn = $state.snapshot(oldOrn);
+			replaceOrn(slackId, {
+				...oldOrn,
+				ornament_position: newOrn.ornament_position,
+				decoration_index: newOrn.decoration_index,
+				rotation: newOrn.rotation,
+				flipped: newOrn.flipped,
+				updated_at: newOrn.updated_at
+			});
+		} else {
+			ornaments.push(newOrn);
+		}
 		draftOrnamentPosition = undefined;
 
 		addingNewOrnament = false;
@@ -139,7 +157,9 @@
 		const respBody = await res.json();
 		if (respBody.error) {
 			recievedError(respBody.error);
-			replaceOrn(slackId, backupOrn);
+			if (backupOrn) {
+				replaceOrn(slackId, backupOrn);
+			}
 		}
 
 		draftOrnamentPosition = undefined;

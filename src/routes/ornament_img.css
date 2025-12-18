@@ -2,6 +2,12 @@ img {
 	user-select: none;
 }
 
+.no-button {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
 .info {
 	background-color: #75a843;
 	font-family: 'Jua';
@@ -9,10 +15,12 @@ img {
 	padding-top: 20px;
 	width: 192px;
 	border-radius: 0 10px 10px 10px;
-	transform: translateY(-40%);
+	/* transform: translateY(-40%); */
 	margin-left: 24px;
 	box-shadow: var(--shadow);
-	/* position: relative; */
+	position: absolute;
+	left: 54px;
+	top: -42px;
 
 	a {
 		font-size: 1.25rem;
@@ -84,6 +92,7 @@ img {
 	left: -2px;
 	top: 1px;
 	scale: 1.55;
+	pointer-events: none;
 }
 
 img.pulsing {

@@ -2,6 +2,7 @@
 	import './styles.css';
 	import Errors from './Errors.svelte';
 	import OrnamentImg from './OrnamentImg.svelte';
+	import NavButtons from './NavButtons.svelte';
 	import OrnamentOptions from './OrnamentOptions.svelte';
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
@@ -171,6 +172,22 @@
 	function recievedError(message: string) {
 		errorHandler.spawnMessage(message);
 	}
+
+	function goToHome() {
+		const viewportCenterX = window.innerWidth / 2;
+		const viewportCenterY = window.innerHeight / 2;
+
+		const treeCenterX = 2784 / 2;
+		const treeCenterY = 3204 / 2;
+
+		pageZoom = 0.3;
+		pagePosition = [
+			viewportCenterX - treeCenterX * pageZoom + 100,
+			viewportCenterY - treeCenterY * pageZoom + 100
+		];
+	}
+
+	function goToOrn() {}
 </script>
 
 {#if isAuthed}
@@ -182,6 +199,8 @@
 {/if}
 
 <Errors bind:this={errorHandler} />
+
+<NavButtons canGoOrn={false} {goToHome} {goToOrn} />
 
 <div class="ui">
 	{#if isAuthed}

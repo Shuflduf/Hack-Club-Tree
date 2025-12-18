@@ -6,11 +6,13 @@
 	let {
 		orn,
 		placed,
-		updateOrn
+		updateOrn,
+		errorHandler
 	}: {
 		orn: Ornament;
 		placed: boolean;
 		updateOrn: ((likedId: string, newLikeCount: number, isLiked: boolean) => void) | null;
+		errorHandler: ((message: string) => void) | null;
 	} = $props();
 	let position = $derived(orn.ornament_position);
 	let infoOpened = $state(false);
@@ -47,6 +49,7 @@
 		}).then((r) =>
 			r.json().then((respBody) => {
 				if (respBody.error) {
+					errorHandler?.(respBody.error);
 					liked = false;
 					return;
 				}

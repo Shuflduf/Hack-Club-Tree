@@ -92,22 +92,36 @@
 		draftOrnamentPosition = undefined;
 	}
 
+	function replaceOrn(targetSlackId: string, newOrn: Ornament) {
+		let oldOrnIndex = ornaments.findIndex((orn) => orn.slack_id == targetSlackId);
+		// let oldOrn = ornaments[oldOrnIndex];
+		ornaments.splice(oldOrnIndex);
+		// let newOrn: Ornament = {
+		// 	...oldOrn,
+		// 	ornament_position: draftOrnamentPosition,
+		// 	decoration_index: currentConfig.decoration,
+		// 	rotation: currentConfig.rotation_degress,
+		// 	flipped: currentConfig.flipped,
+		// 	updated_at: new Date()
+		// };
+		ornaments.push(newOrn);
+	}
+
 	async function confirmOrnament() {
 		if (draftOrnamentPosition == undefined) {
 			return;
 		}
-		let oldOrnIndex = ornaments.findIndex((orn) => orn.slack_id == slackId);
-		let oldOrn = ornaments[oldOrnIndex];
-		ornaments.splice(oldOrnIndex);
-		let newOrn: Ornament = {
+		let oldOrn = ornaments.find((orn) => orn.slack_id == slackId) as Ornament;
+		let backupOrn = $state.snapshot(oldOrn);
+		replaceOrn(slackId, {
 			...oldOrn,
 			ornament_position: draftOrnamentPosition,
 			decoration_index: currentConfig.decoration,
 			rotation: currentConfig.rotation_degress,
 			flipped: currentConfig.flipped,
 			updated_at: new Date()
-		};
-		ornaments.push(newOrn);
+		});
+
 		addingNewOrnament = false;
 		const pos = [Math.round(draftOrnamentPosition[0]), Math.round(draftOrnamentPosition[1])];
 		const res = await fetch('/api/move_ornament', {
@@ -122,9 +136,10 @@
 		const respBody = await res.json();
 		if (respBody.error) {
 			recievedError(respBody.error);
+			replaceOrn(slackId, backupOrn);
+			// draftOrnamentPosition = undefined;
 		}
 
-		console.log(await res.json());
 		draftOrnamentPosition = undefined;
 	}
 
@@ -207,12 +222,13 @@
 				created_at: new Date()
 			}}
 			updateOrn={null}
+			errorHandler={null}
 		/>
 	{/if}
 
 	{#each ornaments as orn}
 		{#if orn.slack_id != slackId || !addingNewOrnament}
-			<OrnamentImg placed={true} {orn} {updateOrn} />
+			<OrnamentImg placed={true} {orn} {updateOrn} errorHandler={recievedError} />
 		{/if}
 	{/each}
 </div>

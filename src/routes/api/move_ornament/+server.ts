@@ -75,13 +75,11 @@ async function getProfileInfo(slackId: string): Promise<any> {
 }
 
 function onCooldown(originalTime: Date): number | null {
-	console.log('NOW', new Date());
-	console.log('OLD', originalTime);
 	const now = new Date().getTime();
 	const before = originalTime.getTime();
 
 	const difference = now - before;
-	const minuteCooldown = 30;
+	const minuteCooldown = 0.2;
 	const millisecondsCooldown = minuteCooldown * 60 * 1000;
 
 	if (difference > millisecondsCooldown) {

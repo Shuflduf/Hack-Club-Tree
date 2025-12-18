@@ -31,6 +31,7 @@
 		flipped: false,
 		rotation_degress: 0
 	});
+	let currentOrnPosition: Position | null = [];
 	// let screen: HTMLElement | undefined = $state()
 
 	const authProps = {
@@ -42,7 +43,16 @@
 	const authParams = new URLSearchParams(authProps).toString();
 
 	onMount(() => {
-		fetch('/api/get_ornaments').then((c) => c.json().then((b) => (ornaments = b)));
+		goToHome();
+		fetch('/api/get_ornaments').then((c) =>
+			c.json().then((b) => {
+				ornaments = b;
+				const myOrn = ornaments.find((orn) => orn.slack_id == slackId);
+				if (myOrn) {
+					currentOrnPosition = myOrn.ornament_position;
+				}
+			})
+		);
 		const screen = document.body;
 		screen.addEventListener('mousedown', (event: MouseEvent) => {
 			mouseDown = true;
@@ -154,11 +164,13 @@
 				decoration: currentConfig.decoration
 			})
 		});
+		currentOrnPosition = pos;
 		const respBody = await res.json();
 		if (respBody.error) {
 			recievedError(respBody.error);
 			if (backupOrn) {
 				replaceOrn(slackId, backupOrn);
+				currentOrnPosition = backupOrn.ornament_position;
 			}
 		}
 
@@ -195,11 +207,25 @@
 		pageZoom = 0.3;
 		pagePosition = [
 			viewportCenterX - treeCenterX * pageZoom + 100,
-			viewportCenterY - treeCenterY * pageZoom + 100
+			viewportCenterY - treeCenterY * pageZoom + 150
 		];
 	}
 
-	function goToOrn() {}
+	function goToOrn() {
+		if (!currentOrnPosition) {
+			return;
+		}
+		const viewportCenterX = window.innerWidth / 2;
+		const viewportCenterY = window.innerHeight / 2;
+
+		const ornCenter = 170 / 2;
+
+		pageZoom = 2;
+		pagePosition = [
+			-currentOrnPosition[0] * pageZoom + viewportCenterX - ornCenter,
+			-currentOrnPosition[1] * pageZoom + viewportCenterY - ornCenter
+		];
+	}
 </script>
 
 {#if isAuthed}
@@ -212,7 +238,7 @@
 
 <Errors bind:this={errorHandler} />
 
-<NavButtons canGoOrn={false} {goToHome} {goToOrn} />
+<NavButtons canGoOrn={currentOrnPosition != null} {goToHome} {goToOrn} />
 
 <div class="ui">
 	{#if isAuthed}

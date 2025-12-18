@@ -2,7 +2,11 @@ import { client, getSlackId } from '$lib/server/lib';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ cookies, request }) => {
-	const slackId = await getSlackId(cookies.get('access_token') as string);
+	const accessToken = cookies.get('access_token');
+	if (!accessToken) {
+		return new Response(JSON.stringify({ error: 'Not logged in. Try Refreshing!' }));
+	}
+	const slackId = await getSlackId(accessToken);
 	const reqBody = await request.json();
 	const toggleLikeSql = `
 WITH existing AS (

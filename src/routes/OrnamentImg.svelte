@@ -46,6 +46,10 @@
 			})
 		}).then((r) =>
 			r.json().then((respBody) => {
+				if (respBody.error) {
+					liked = false;
+					return;
+				}
 				const ornLikeCount = respBody.like_count;
 				const ornLiked = respBody.liked;
 				liked = ornLiked;

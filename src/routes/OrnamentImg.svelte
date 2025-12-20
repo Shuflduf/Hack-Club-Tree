@@ -81,11 +81,17 @@
 			draggable="false"
 			class={`profile ${placed ? '' : 'pulsing'}`}
 			alt="profile"
-			style={`rotate: ${orn.rotation}deg; transform: scaleX(${orn.flipped ? -1 : 1})`}
+			style={`rotate: ${orn.rotation}deg; transform: scaleX(${orn.flipped ? -1 : 1}); height: ${50 + 2 * orn.likes}px`}
 		/>
 	</button>
 	{#if orn.decoration_index != 0}
-		<img src={decorationUrl} class="overlay" alt="overlay" draggable="false" />
+		<img
+			src={decorationUrl}
+			class="overlay"
+			alt="overlay"
+			draggable="false"
+			style={`height: ${50 + 2 * orn.likes}px`}
+		/>
 	{/if}
 	{#if infoOpened}
 		<div class="info">

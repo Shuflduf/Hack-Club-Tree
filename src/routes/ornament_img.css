@@ -17,13 +17,14 @@ img {
 	padding-top: 20px;
 	width: 192px;
 	border-radius: 0 10px 10px 10px;
-	/* transform: translateY(-40%); */
+	transform: translateY(-50%);
 	margin-left: 24px;
 	box-shadow: var(--shadow);
 	position: absolute;
 	z-index: 10;
 	left: 54px;
-	top: -42px;
+	/* transla */
+	/* top: -42px; */
 
 	a {
 		font-size: 1.25rem;
@@ -31,7 +32,11 @@ img {
 		background-color: #75a843;
 		padding: 8px 24px 0px;
 		position: absolute;
-		top: -20px;
+		/* top: -20px; */
+		min-height: 20px;
+		/* height: min-content; */
+		transform: translateY(calc(-100% - 15px));
+		max-width: 70%;
 		border-radius: 10px 10px 0 0;
 	}
 
@@ -110,6 +115,7 @@ img.pulsing {
 }
 
 @keyframes pulse {
+
 	0%,
 	100% {
 		filter: brightness(1);

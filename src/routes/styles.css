@@ -44,7 +44,7 @@ html {
 			0px 0px 0px 10px #be4b53;
 	}
 
-	h1 {
+	a {
 		clip-path: polygon(0 0, 100% 0%, 90% 100%, 0% 100%);
 		text-shadow: var(--shadow);
 		background-color: #a3383f;

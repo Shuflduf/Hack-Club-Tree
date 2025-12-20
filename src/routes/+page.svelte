@@ -275,7 +275,7 @@
 	{#if isAuthed}
 		<div class="profile-card">
 			<img src={profile.image_512} alt="profile" />
-			<h1>{profile.display_name}</h1>
+			<a href="/signout" title="Click to sign out">{profile.display_name}</a>
 		</div>
 		{#if addingNewOrnament}
 			<button class="secondary-button" onclick={confirmOrnament} title="Place Ornament">

@@ -88,6 +88,9 @@
 	}
 
 	.profile {
+		transition-property: rotate;
+		transition-duration: 30ms;
+		transition-timing-function: ease-out;
 		border-radius: 50%;
 		box-shadow: var(--shadow);
 	}

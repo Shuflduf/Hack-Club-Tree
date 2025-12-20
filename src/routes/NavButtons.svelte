@@ -28,7 +28,7 @@
 		padding: 20px;
 		display: flex;
 		gap: 16px;
-		z-index: 20;
+		z-index: 10;
 	}
 
 	button:disabled {

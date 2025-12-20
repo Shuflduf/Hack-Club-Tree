@@ -8,6 +8,7 @@
 	import { onMount } from 'svelte';
 	import type { PageProps } from './$types';
 	import { Decoration, type Ornament, type OrnamentConfig } from '$lib';
+	import { fly } from 'svelte/transition';
 
 	type Position = [number, number];
 

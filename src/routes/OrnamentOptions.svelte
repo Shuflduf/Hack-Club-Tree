@@ -3,6 +3,7 @@
 	import { DecorationFiles } from '$lib';
 	import { onMount } from 'svelte';
 	import './ornament_options.css';
+	import { fly } from 'svelte/transition';
 
 	let { pfpUrl, finished }: { pfpUrl: string; finished: (newConf: OrnamentConfig) => void } =
 		$props();
@@ -36,7 +37,7 @@
 </script>
 
 {#if open}
-	<div class="background">
+	<div class="background" transition:fly={{ y: 100, duration: 300 }}>
 		<div class="menu">
 			<form>
 				<div class="question yellow">

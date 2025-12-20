@@ -2,6 +2,7 @@
 	import './ornament_img.css';
 	import { Decoration, DecorationFiles, type Ornament, type OrnamentConfig } from '$lib';
 	import { onMount } from 'svelte';
+	import { fly, scale, slide } from 'svelte/transition';
 
 	let {
 		orn,
@@ -94,7 +95,7 @@
 		/>
 	{/if}
 	{#if infoOpened}
-		<div class="info">
+		<div class="info" transition:fly={{ x: -20, duration: 300 }}>
 			<a href={`https://hackclub.slack.com/team/${orn.slack_id}`}>{orn.username}</a>
 
 			<div class="likes">

@@ -98,12 +98,16 @@ img {
 
 .profile {
 	/* height: 50px; */
+	transition-property: height;
+	transition-duration: 300ms;
 	border-radius: 50%;
 }
 
 .overlay {
 	position: absolute;
 	/* height: 50px; */
+	transition-property: height;
+	transition-duration: 500ms;
 	left: -2px;
 	top: 1px;
 	scale: 1.55;
@@ -116,7 +120,6 @@ img.pulsing {
 }
 
 @keyframes pulse {
-
 	0%,
 	100% {
 		filter: brightness(1);

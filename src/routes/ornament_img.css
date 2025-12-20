@@ -115,7 +115,6 @@ img.pulsing {
 }
 
 @keyframes pulse {
-
 	0%,
 	100% {
 		filter: brightness(1);

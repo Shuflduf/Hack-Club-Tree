@@ -33,11 +33,23 @@
 		rotation_degress: 0
 	});
 	let currentOrnPosition: Position | null = $state(null);
+	let configMenuOpened = $state(false);
+
 	$effect(() => {
 		if (background) {
-			// TODO: finish
-			background.style.backgroundPosition = `${pagePosition[0] * 0.3}px ${pagePosition[1] * 0.3}px`;
+			const viewportCenterX = window.innerWidth / 2;
+			const viewportCenterY = window.innerHeight / 2;
+
+			const imageCenterX = 1500;
+			const imageCenterY = 1500;
+
+			const offsetX = pagePosition[0] + (viewportCenterX - imageCenterX * pageZoom * 4.0);
+			const offsetY = pagePosition[1] + (viewportCenterY - imageCenterY * pageZoom * 4.0);
+
+			background.style.backgroundPosition = `${offsetX * 0.3}px ${offsetY * 0.3}px`;
 			background.style.backgroundSize = `${pageZoom * 3000}px`;
+			// background.style.backgroundPosition = `${pagePosition[0] * 0.3}px ${pagePosition[1] * 0.3}px`;
+			// background.style.backgroundSize = `${pageZoom * 3000}px`;
 		}
 	});
 	// let screen: HTMLElement | undefined = $state()
@@ -133,6 +145,7 @@
 			Math.round(draftOrnamentPosition[0]),
 			Math.round(draftOrnamentPosition[1])
 		];
+		currentOrnPosition = pos;
 		let oldOrn: Ornament | undefined = ornaments.find((orn) => orn.slack_id == slackId);
 		let newOrn: Ornament = {
 			created_at: new Date(),
@@ -180,6 +193,8 @@
 			if (backupOrn) {
 				replaceOrn(slackId, backupOrn);
 				currentOrnPosition = backupOrn.ornament_position;
+			} else {
+				currentOrnPosition = null;
 			}
 		}
 
@@ -187,6 +202,7 @@
 	}
 
 	function openOrnamentOptions() {
+		configMenuOpened = true;
 		ornamentOptionsMenu.startEditing($state.snapshot(currentConfig));
 	}
 
@@ -257,16 +273,37 @@
 		</div>
 		{#if addingNewOrnament}
 			<button class="secondary-button" onclick={confirmOrnament}>
+				{#if configMenuOpened}
+					<img
+						src="https://icons.hackclub.com/api/icons/0xbe4b53/important-fill"
+						class="indicator"
+						alt="indicator"
+					/>
+				{/if}
 				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/checkmark" alt="confirm" />
 			</button>
 			<button class="secondary-button" onclick={cancelOrnament}>
 				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/view-close-small" alt="cancel" />
 			</button>
 			<button class="secondary-button" onclick={openOrnamentOptions}>
+				{#if !configMenuOpened}
+					<img
+						src="https://icons.hackclub.com/api/icons/0xbe4b53/important-fill"
+						class="indicator"
+						alt="indicator"
+					/>
+				{/if}
 				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/controls" alt="options" />
 			</button>
 		{:else}
 			<button class="secondary-button" onclick={newOrnament}>
+				{#if currentOrnPosition == null}
+					<img
+						src="https://icons.hackclub.com/api/icons/0xbe4b53/important-fill"
+						class="indicator"
+						alt="indicator"
+					/>
+				{/if}
 				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/plus-fill" alt="new" />
 			</button>
 		{/if}

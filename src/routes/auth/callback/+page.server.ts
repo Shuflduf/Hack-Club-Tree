@@ -3,6 +3,7 @@ import { env as penv } from '$env/dynamic/public';
 import { redirect } from '@sveltejs/kit';
 
 import type { PageServerLoad } from './$types';
+import { getSlackId, getSlackProfile } from '$lib/server/lib';
 
 export const load: PageServerLoad = async ({ url, cookies }) => {
 	const code = url.searchParams.get('code');
@@ -28,27 +29,28 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
 		maxAge: 3600
 	});
 
-	const userInfoUrl = 'https://auth.hackclub.com/oauth/userinfo';
-	const userInfoReq = await fetch(userInfoUrl, {
-		headers: {
-			Authorization: `Bearer ${response.access_token}`
-		}
-	});
-	const userInfo = await userInfoReq.json();
+	// const userInfoUrl = 'https://auth.hackclub.com/oauth/userinfo';
+	// const userInfoReq = await fetch(userInfoUrl, {
+	// 	headers: {
+	// 		Authorization: `Bearer ${response.access_token}`
+	// 	}
+	// });
+	// const userInfo = await userInfoReq.json();
 
-	const slackInfoUrl = 'https://slack.com/api/users.info';
-	const slackInfoReq = await fetch(slackInfoUrl, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
-		},
-		body: new URLSearchParams({
-			token: env.SLACK_BOT_OAUTH_TOKEN,
-			user: userInfo.slack_id
-		})
-	});
-	const slackInfo = await slackInfoReq.json();
-	console.log(slackInfo.user.profile);
+	// const slackInfoUrl = 'https://slack.com/api/users.info';
+	// const slackInfoReq = await fetch(slackInfoUrl, {
+	// 	method: 'POST',
+	// 	headers: {
+	// 		'Content-Type': 'application/x-www-form-urlencoded'
+	// 	},
+	// 	body: new URLSearchParams({
+	// 		token: env.SLACK_BOT_OAUTH_TOKEN,
+	// 		user: userInfo.slack_id
+	// 	})
+	// });
+	// const slackInfo = await slackInfoReq.json();
+	// const slackProfile = await getSlackProfile(userInfo.slack_id)
+	// console.log(slackProfile);
 
 	redirect(302, '/');
 };

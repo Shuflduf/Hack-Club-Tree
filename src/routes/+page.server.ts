@@ -1,4 +1,5 @@
 import { env } from '$env/dynamic/private';
+import { client } from '$lib/server/lib';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ cookies }) => {
@@ -6,6 +7,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
 	const accessToken = cookies.get('access_token');
 	if (accessToken != undefined) {
 		profile = await getProfile(accessToken);
+		await updateProfileOrn(profile);
 	}
 	return profile;
 };
@@ -36,4 +38,20 @@ async function getProfile(access_token: string): Promise<any> {
 		profile: slackInfo.user.profile,
 		slack_id: slackInfo.user.id
 	};
+}
+
+async function updateProfileOrn(userInfo: any) {
+	const sqlInstruction = `
+UPDATE users
+SET 
+	username = $2,
+	pfp_url = $3
+WHERE slack_id = $1;
+	`;
+	await client.query(sqlInstruction, [
+		userInfo.slack_id,
+		userInfo.profile.display_name,
+		userInfo.profile.image_192
+	]);
+	// console.log(res);
 }

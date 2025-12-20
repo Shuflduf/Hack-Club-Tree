@@ -44,3 +44,19 @@ GROUP BY u.slack_id;
 	// });
 	return ornament;
 }
+
+export async function getSlackProfile(slackId: string): Promise<any> {
+	const slackInfoUrl = 'https://slack.com/api/users.info';
+	const slackInfoReq = await fetch(slackInfoUrl, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
+		body: new URLSearchParams({
+			token: env.SLACK_BOT_OAUTH_TOKEN,
+			user: slackId
+		})
+	});
+	const slackInfo = await slackInfoReq.json();
+	return slackInfo.user.profile;
+}

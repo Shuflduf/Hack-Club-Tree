@@ -32,6 +32,7 @@ img {
 		background-color: #75a843;
 		padding: 8px 24px 0px;
 		position: absolute;
+		overflow-wrap: break-word;
 		/* top: -20px; */
 		min-height: 20px;
 		/* height: min-content; */

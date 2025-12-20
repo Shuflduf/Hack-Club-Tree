@@ -101,8 +101,8 @@
 				<p>{orn.likes}</p>
 			</div>
 			<div class="created-at">
-				<span>Created at: {formatDate(orn.created_at)}</span>
-				<span>Updated at: {formatDate(orn.updated_at)}</span>
+				<span title={orn.created_at.toString()}>Created at: {formatDate(orn.created_at)}</span>
+				<span title={orn.updated_at.toString()}>Updated at: {formatDate(orn.updated_at)}</span>
 			</div>
 		</div>
 	{/if}

@@ -64,15 +64,7 @@
 
 	onMount(() => {
 		goToHome();
-		fetch('/api/get_ornaments').then((c) =>
-			c.json().then((b) => {
-				ornaments = b;
-				const myOrn = ornaments.find((orn) => orn.slack_id == slackId);
-				if (myOrn) {
-					currentOrnPosition = myOrn.ornament_position;
-				}
-			})
-		);
+		reload();
 		background = document.documentElement;
 		const screen = document.body;
 		screen.addEventListener('mousedown', (event: MouseEvent) => {
@@ -251,6 +243,20 @@
 			-currentOrnPosition[1] * pageZoom + viewportCenterY - ornCenter
 		];
 	}
+
+	function reload() {
+		currentOrnPosition = null;
+		ornaments = [];
+		fetch('/api/get_ornaments').then((c) =>
+			c.json().then((b) => {
+				ornaments = b;
+				const myOrn = ornaments.find((orn) => orn.slack_id == slackId);
+				if (myOrn) {
+					currentOrnPosition = myOrn.ornament_position;
+				}
+			})
+		);
+	}
 </script>
 
 {#if isAuthed}
@@ -263,7 +269,7 @@
 
 <Errors bind:this={errorHandler} />
 
-<NavButtons canGoOrn={currentOrnPosition != null} {goToHome} {goToOrn} />
+<NavButtons canGoOrn={currentOrnPosition != null} {goToHome} {goToOrn} {reload} />
 
 <div class="ui">
 	{#if isAuthed}
@@ -272,7 +278,7 @@
 			<h1>{profile.display_name}</h1>
 		</div>
 		{#if addingNewOrnament}
-			<button class="secondary-button" onclick={confirmOrnament}>
+			<button class="secondary-button" onclick={confirmOrnament} title="Place Ornament">
 				{#if configMenuOpened}
 					<img
 						src="https://icons.hackclub.com/api/icons/0xbe4b53/important-fill"
@@ -282,10 +288,10 @@
 				{/if}
 				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/checkmark" alt="confirm" />
 			</button>
-			<button class="secondary-button" onclick={cancelOrnament}>
+			<button class="secondary-button" onclick={cancelOrnament} title="Cancel Placement">
 				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/view-close-small" alt="cancel" />
 			</button>
-			<button class="secondary-button" onclick={openOrnamentOptions}>
+			<button class="secondary-button" onclick={openOrnamentOptions} title="Open Configuration">
 				{#if !configMenuOpened}
 					<img
 						src="https://icons.hackclub.com/api/icons/0xbe4b53/important-fill"
@@ -296,7 +302,7 @@
 				<img src="https://icons.hackclub.com/api/icons/0xf8e9d3/controls" alt="options" />
 			</button>
 		{:else}
-			<button class="secondary-button" onclick={newOrnament}>
+			<button class="secondary-button" onclick={newOrnament} title="Add your Ornament">
 				{#if currentOrnPosition == null}
 					<img
 						src="https://icons.hackclub.com/api/icons/0xbe4b53/important-fill"

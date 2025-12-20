@@ -6,13 +6,16 @@ export const load: PageServerLoad = async ({ cookies }) => {
 	let profile: any = undefined;
 	const accessToken = cookies.get('access_token');
 	if (accessToken != undefined) {
+		console.time('get profile');
 		profile = await getProfile(accessToken);
+		console.timeEnd('get profile');
 		await updateProfileOrn(profile);
 	}
 	return profile;
 };
 
 async function getProfile(access_token: string): Promise<any> {
+	console.time('hca');
 	const userInfoUrl = 'https://auth.hackclub.com/oauth/userinfo';
 	const userInfoReq = await fetch(userInfoUrl, {
 		headers: {
@@ -20,7 +23,9 @@ async function getProfile(access_token: string): Promise<any> {
 		}
 	});
 	const userInfo = await userInfoReq.json();
+	console.timeEnd('hca');
 
+	console.time('slack');
 	const slackInfoUrl = 'https://slack.com/api/users.info';
 	const slackInfoReq = await fetch(slackInfoUrl, {
 		method: 'POST',
@@ -33,7 +38,8 @@ async function getProfile(access_token: string): Promise<any> {
 		})
 	});
 	const slackInfo = await slackInfoReq.json();
-	console.log(slackInfo);
+	console.timeEnd('slack');
+	// console.log(slackInfo);
 	return {
 		profile: slackInfo.user.profile,
 		slack_id: slackInfo.user.id
